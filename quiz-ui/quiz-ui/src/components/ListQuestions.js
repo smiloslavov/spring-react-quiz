@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 class ListQuestions extends React.Component {
 
@@ -12,20 +13,37 @@ class ListQuestions extends React.Component {
     }
 
     async componentDidMount() {
+        this.refreshQuestions();
+    }
+
+    async refreshQuestions() {
         let response = await axios.get('/api/v1/questions');
-        console.log(response);
         this.setState({ questions: response.data });
     }
 
     render() {
         let questionsList = this.state.questions.map( (question, index) => {
-            return (<div key={index} >{question.text}</div>);
+            return (<div key={index} >
+                        {question.text} &nbsp;
+                        <Link to={`/add/${ question.id }`}>Add Answers</Link>  &nbsp;  
+                        <button onClick={ () => { 
+                                axios.delete('/api/v1/questions/' + question.id, 
+                                    { data: { foo: "bar" }}, )
+                                .then( () => {
+                                        this.refreshQuestions();
+                                }); 
+                            }}>
+                            Delete
+                        </button>  &nbsp; 
+                        
+                    </div>);
         });
 
         return(
             <div className="container">
-                <h1>Quiz</h1>
+                <h1>Admin</h1>
                 <div>{questionsList}</div>
+                <div><Link to={`/create`}>Add Question</Link></div>
             </div>
         );
     }

@@ -35,8 +35,9 @@ public class QuestionController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
-	public void create(@RequestBody Question question) {
+	public String create(@RequestBody Question question) {
 		questionRepository.save(question);
+		return "Question successfully created!";
 	}
 	
 	@DeleteMapping("/{id}")

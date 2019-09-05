@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Question {
 	@Id
@@ -19,6 +21,7 @@ public class Question {
 	private String category;
 	
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<Answer> answers;
 	
 	public Long getId() {

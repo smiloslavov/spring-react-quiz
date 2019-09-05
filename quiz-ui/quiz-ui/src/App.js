@@ -7,6 +7,7 @@ import ListQuestions from './components/ListQuestions';
 import CreateQuestion from './components/CreateQuestion';
 import AddAnswers from './components/AddAnswers';
 import Quiz from './components/Quiz';
+import Standings from './components/Standings';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path='/admin' component={ListQuestions} />
               <Route path='/create' component={CreateQuestion} />
               <Route path='/add/:id' component ={AddAnswers} />
+              <Route path='/standings' component ={Standings} />
               <Route component={PageNotFound} />
           </Switch>
 

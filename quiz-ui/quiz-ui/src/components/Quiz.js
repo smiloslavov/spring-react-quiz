@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Redirect, withRouter } from 'react-router-dom'
 
 class Quiz extends React.Component {
 
@@ -8,7 +8,8 @@ class Quiz extends React.Component {
         super(props);
 
         this.state = {
-            questions: []
+            questions: [],
+            formSubmitted: false
         }
     }
 
@@ -21,19 +22,37 @@ class Quiz extends React.Component {
         this.setState({ questions: response.data });
     }
 
-    formSubmit = (event) => {
+    async checkAnswerIsTrue(answerId) {
+        let response = await axios.get('/api/v1/answers/' + answerId);
+        return response.data.is_right;
+    }
+
+    formSubmit = async (event) => {
         event.preventDefault();
         
         let elements = document.getElementsByClassName('answerItem');
-        console.log(elements);
+        let score = 0;
         for(var i = 0; i < elements.length; i++) {
-            console.log(elements[i]['checked']);
-            console.log(elements[i]['value']);
-            //NEED TO FINISH THIS, SEND AXIOS REQUEST TO CHECK RIGHT ANSWERS
+            if (elements[i]['checked'] === true) {
+                console.log(elements[i]['value']);
+                if (await this.checkAnswerIsTrue(elements[i]['value']) === true) {
+                    score += 5;
+                }
+            }
         }
+
+        console.log("Finished with score: " + score);
+        axios.post('/api/v1/scores', {
+            username: document.getElementById("email").value,
+            score: score
+        }).then( () => this.setState({ formSubmitted: true }));
     }
 
     render() {
+        if (this.state.formSubmitted) {
+            return <Redirect to='/standings' />;
+        }
+
         let questionsList = this.state.questions.map( (question, index) => {
             let answersText = question.answers.map( (answer, aIndex) => {
                 return (<span key={aIndex} >
@@ -71,4 +90,4 @@ class Quiz extends React.Component {
     }
 };
 
-export default Quiz;
+export default withRouter(Quiz);

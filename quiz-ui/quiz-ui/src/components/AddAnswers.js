@@ -48,16 +48,18 @@ class AddAnswers extends React.Component {
                     <form onSubmit={this.formSubmit}>
                         <div className="container">
                             <h5>Please enter aswers for this question:</h5>
-                            <div>True answer:<input id="true_answer" name="true_answer" type="text" /></div>
-                            <div>False answer:<input id="first_false" name="first_false" type="text" /></div>
-                            <div>False answer:<input id="second_false" name="second_false" type="text" /></div>
-                            <div>False answer:<input id="third_false" name="third_false" type="text" /></div>
+                            <div>True answer:<input id="true_answer" className='form-control' name="true_answer" type="text" /></div>
+                            <div>False answer:<input id="first_false" className='form-control' name="first_false" type="text" /></div>
+                            <div>False answer:<input id="second_false" className='form-control' name="second_false" type="text" /></div>
+                            <div>False answer:<input id="third_false" className='form-control' name="third_false" type="text" /></div>
                             <div>{this.state.message}</div>
-                            <div><input type="submit" /></div>
+                            <br />
+                            <div><input className='btn btn-primary' type="submit" /></div>
                         </div>
                     </form>
                 </div>
-                <div><Link to={`/admin`}>Back</Link></div>
+                <br />
+                <div><Link className='btn btn-secondary' to={`/admin`}>Back</Link></div>
             </div>
         );
     }

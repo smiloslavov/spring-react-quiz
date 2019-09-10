@@ -30,9 +30,9 @@ class CreateQuestion extends React.Component {
             <form onSubmit={this.formSubmit}>
                 <div className="container">
                     <h1>Enter New Question</h1>
-                    <div>Question:<input id="question" name="question" type="text" /></div>
-                    <div>Category:<input id="category" name="category" type="text" /></div>
-                    <div><input type="submit" value="Submit" /></div>
+                    <div>Question:<input id="question" className='form-control' name="question" type="text" /></div>
+                    <div>Category:<input id="category" className='form-control' name="category" type="text" /></div>
+                    <div><input className='btn btn-primary' type="submit" value="Submit" /></div>
                 </div>
             </form>
         );

@@ -55,7 +55,7 @@ class Quiz extends React.Component {
 
         let questionsList = this.state.questions.map( (question, index) => {
             let answersText = question.answers.map( (answer, aIndex) => {
-                return (<span key={aIndex} >
+                return (<label className='radio-inline' key={aIndex} >
                             <input 
                                 id={`answer_${question.id}_${answer.id}`}
                                 name={`answer_${question.id}`} 
@@ -64,7 +64,7 @@ class Quiz extends React.Component {
                                 value={answer.id} />
                             {answer.text}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </span>)
+                        </label>)
             });
             return (<div key={index} >
                 {question.text} &nbsp;
@@ -78,12 +78,12 @@ class Quiz extends React.Component {
                 <form onSubmit={this.formSubmit}>
                     <div className="container">
                         <h5>Please enter your email:</h5>
-                        <div><input id="email" name="email" type="text" /></div>
+                        <div><input id="email" className='form-control' name="email" type="text" /></div>
                     </div>
                     
                     <div>{questionsList}</div>
 
-                    <div><input type="submit" /></div>
+                    <div><input className='btn btn-primary' type="submit" /></div>
                 </form>
             </div>
         );

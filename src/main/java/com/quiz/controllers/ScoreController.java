@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quiz.models.Question;
 import com.quiz.models.Score;
+import com.quiz.models.Totals;
 import com.quiz.repositories.ScoreRepository;
 
 @RestController
@@ -24,7 +24,12 @@ public class ScoreController {
 	
 	@GetMapping
 	public List<Score> list() {
-		return scoreRepository.findAll();
+		return scoreRepository.findAllByOrderByScoreDesc();
+	}
+	
+	@GetMapping("/overall")
+	public List<Totals> total() {
+		return scoreRepository.getTotalScores();
 	}
 	
 	@PostMapping

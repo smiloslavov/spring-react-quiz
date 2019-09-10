@@ -25,8 +25,8 @@ class ListQuestions extends React.Component {
         let questionsList = this.state.questions.map( (question, index) => {
             return (<div key={index} >
                         {question.text} &nbsp;
-                        <Link to={`/add/${ question.id }`}>Add Answers</Link>  &nbsp;  
-                        <button onClick={ () => { 
+                        <Link className='btn btn-primary' to={`/add/${ question.id }`}>Add Answers</Link>  &nbsp;  
+                        <button className='btn btn-danger' onClick={ () => { 
                                 axios.delete('/api/v1/questions/' + question.id, 
                                     { data: { foo: "bar" }}, )
                                 .then( () => {
@@ -43,7 +43,7 @@ class ListQuestions extends React.Component {
             <div className="container">
                 <h1>Admin</h1>
                 <div>{questionsList}</div>
-                <div><Link to={`/create`}>Add Question</Link></div>
+                <div><Link className='btn btn-primary' to={`/create`}>Add Question</Link></div>
             </div>
         );
     }
